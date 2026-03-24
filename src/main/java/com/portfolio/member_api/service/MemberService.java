@@ -47,7 +47,7 @@ public class MemberService {
 	@Transactional
 	public MemberResponseDto update(Long id, MemberRequestDto request) {
 		Member member = memberRepository.findById(id)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "회원을 찾을 수 없습니다."));
+				.orElseThrow(() -> new MemberNotFoundException("회원을 찾을 수 없습니다."));
 		memberRepository.findByEmail(request.getEmail())
 				.filter(m -> !m.getId().equals(id))
 				.ifPresent(m -> {
